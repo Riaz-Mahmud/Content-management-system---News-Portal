@@ -73,11 +73,11 @@
                             <div class="col-md-4">
                                 <div class="sidebar-content fl-wrap fix-bar">
                                     <x-frontend.news.recent-and-popular-news :popularNewses="$data['popularNewses']" :recentNewses="$data['recentNewses']" />
-
+                                    <livewire:ad-show :code="'home_page'" :place="'home_page'"/>
                                     <x-frontend.social-icon.social-icon :position="'middle'" />
                                     <x-frontend.tags.popular-tags :code="$data['tags']" />
                                     <livewire:poll />
-                                    {{-- @include('frontend.layout.editorchoice') --}}
+                                    @include('frontend.layout.editorchoice')
                                 </div>
                             </div>
 
