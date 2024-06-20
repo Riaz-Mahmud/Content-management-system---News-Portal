@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class SliderItem extends Model
 {
     use HasFactory;
+
+    public function news(){
+        return $this->belongsTo(News::class, 'newses_id')->where('is_deleted', 0);
+    }
 }

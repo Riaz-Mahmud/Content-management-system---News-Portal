@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('slug',)->unique();
             $table->unsignedBigInteger('parent_id')->nullable()->default(null)->comment('Parent category id');
-            $table->string('description')->nullable();
-            $table->string('image')->nullable();
+            $table->tinyInteger('star')->nullable();
 
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->tinyInteger('is_deleted')->nullable()->default(0);

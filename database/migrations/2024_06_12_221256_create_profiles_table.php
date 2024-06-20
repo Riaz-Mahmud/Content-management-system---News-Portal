@@ -24,20 +24,11 @@ return new class extends Migration
             $table->date('date_of_birth')->nullable();
             $table->string('phone')->nullable();
             $table->string('country')->nullable();
-            $table->string('profession')->nullable();
-            $table->string('field_of_profession')->nullable();
-            $table->string('current_job')->nullable();
-            $table->string('job_experience')->nullable();
             $table->string('mailing_address')->nullable();
-            $table->string('organization')->nullable();
-            $table->string('organization_address')->nullable();
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
 
             $table->enum('status', ['Pending', 'Active', 'Blocked'])->default('Pending');
             $table->tinyInteger('is_deleted')->nullable()->default(0);
-            $table->timestamp('created_at')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->nullable()->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

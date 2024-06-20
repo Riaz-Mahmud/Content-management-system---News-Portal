@@ -44,6 +44,14 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
+    public function profile(){
+        return $this->hasOne('App\Models\Profile');
+    }
+
+    public function news(){
+        return $this->hasMany('App\Models\News');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

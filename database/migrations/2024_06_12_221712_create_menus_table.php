@@ -25,16 +25,6 @@ return new class extends Migration
             $table->tinyInteger('is_deleted')->nullable()->default(0);
             $table->timestamps();
         });
-
-        DB::table('menus')->insert(
-            array(
-                'label' => 'Main Menu',
-                'href' => null,
-                'description' => 'Home page menu',
-                'status' => 'Active',
-                'is_deleted' => 0,
-            )
-        );
     }
 
     /**

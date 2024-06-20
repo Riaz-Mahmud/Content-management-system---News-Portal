@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
+
+    function items(){
+        return $this->hasMany('App\Models\MenuItem', 'menu_id', 'id');
+    }
 }

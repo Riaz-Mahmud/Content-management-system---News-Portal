@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class PollResponse extends Model
 {
     use HasFactory;
+
+    public function poll(){
+        return $this->belongsTo('App\Models\Poll');
+    }
+
+    public function pollItem(){
+        return $this->belongsTo('App\Models\PollItem');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }
