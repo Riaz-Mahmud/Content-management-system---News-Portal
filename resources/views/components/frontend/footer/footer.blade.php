@@ -7,7 +7,7 @@
                 <div class="col-md-4">
                     <div class="footer-widget">
                         <div class="footer-widget-content">
-                            <a href="index.html" class="footer-logo"><img src="{{ Storage::url('assets/image/logo/ec_logo_with_name.png') }}" alt=""></a>
+                            <a href="index.html" class="footer-logo"><img src="{{ Storage::url('assets/image/logo/logo_with_name_white.png') }}" alt=""></a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eaque ipsa quae ab illo inventore veritatis et quasi architecto. </p>
 
                             <x-frontend.social-icon.social-icon :position="'footer'" />

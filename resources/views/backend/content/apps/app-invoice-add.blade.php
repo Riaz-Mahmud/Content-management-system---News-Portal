@@ -32,7 +32,7 @@
           <div class="col-md-6 mb-md-0 mb-4">
             <div class="d-flex svg-illustration mb-4 gap-2">
               <span class="app-brand-logo demo">
-                <img src="{{Storage::url('assets/image/logo/ec_logo.png')}}" alt="Logo" width="40" />
+                <img src="{{Storage::url('assets/image/logo/logo.png')}}" alt="Logo" width="40" />
               </span>
               <span class="app-brand-text demo text-body fw-bolder">{{ config('variables.templateName') }}</span>
             </div>

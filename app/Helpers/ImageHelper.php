@@ -8,7 +8,10 @@ class ImageHelper{
 
     public static function generateImage($path, $type = 'main'){
         if($path == null || $path == ''){
-            return Storage::url('assets/image/background/no_image_found.png');
+            return Storage::url('assets/image/background/no_image_found.jpg');
+        }
+        if(!Storage::disk('public')->exists($path)){
+            return Storage::url('assets/image/background/no_image_found.jpg');
         }
         if($type == 'main'){
             return Storage::url($path);

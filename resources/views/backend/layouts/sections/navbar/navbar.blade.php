@@ -19,7 +19,7 @@
     <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
         <a href="{{ url('/dashboard') }}" class="app-brand-link gap-2">
             <span class="app-brand-logo demo">
-                <img src="{{ asset('assets/backend/img/logo/ec_logo.png') }}" alt="Logo" width="40" />
+                <img src="{{ asset('assets/backend/img/logo/logo.png') }}" alt="Logo" width="40" />
             </span>
             <span class="app-brand-text demo text-body fw-bolder">{{ config('variables.templateName') }}</span>
         </a>
@@ -474,12 +474,16 @@
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                    <img src="@if (Auth::user()) @if (Auth::user()->profile->image) {{ Storage::url(Auth::user()->profile->image) }}
-                        @else
-                        {{ Storage::url('assets/image/avatars/1.png') }} @endif
-                    @else
-                    {{ Storage::url('assets/image/avatars/1.png') }} @endif"
-                        alt class="w-px-40 h-auto rounded-circle">
+                    <img src="  @if (Auth::user())
+                                    @if (Auth::user()->profile->image)
+                                        {{ App\Helpers\ImageHelper::generateImage(Auth::user()->profile->image) }}
+                                    @else
+                                        {{ Storage::url('assets/image/avatars/1.png') }}
+                                    @endif
+                                @else
+                                    {{ Storage::url('assets/image/avatars/1.png') }}
+                                @endif"
+                    alt class="w-px-40 h-auto rounded-circle">
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -488,10 +492,15 @@
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                                 <div class="avatar avatar-online">
-                                    <img src="@if (Auth::user()) @if (Auth::user()->profile->image) {{ Storage::url(Auth::user()->profile->image) }}
-                        @else {{ Storage::url('assets/image/avatars/1.png') }} @endif
-@else
-{{ Storage::url('assets/image/avatars/1.png') }} @endif"
+                                    <img src="@if (Auth::user())
+                                                    @if (Auth::user()->profile->image)
+                                                        {{ App\Helpers\ImageHelper::generateImage(Auth::user()->profile->image) }}
+                                                    @else
+                                                        {{ Storage::url('assets/image/avatars/1.png') }}
+                                                    @endif
+                                                @else
+                                                    {{ Storage::url('assets/image/avatars/1.png') }}
+                                                @endif"
                                         alt class="w-px-40 h-auto rounded-circle">
                                 </div>
                             </div>

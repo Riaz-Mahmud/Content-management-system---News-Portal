@@ -202,27 +202,6 @@ class MenuHelper{
             }
         }
 
-        if(Auth::user()->hasPermissionTo('admin.webinar.index') || Auth::user()->hasPermissionTo('admin.webinar.create')){
-            $data['menu'][] = [
-                'name' => 'Webinar',
-                'icon' => 'menu-icon tf-icons bx bx-slideshow',
-                'slug' => 'admin.webinar',
-            ];
-            if(Auth::user()->hasPermissionTo('admin.webinar.index')){
-                $data['menu'][count($data['menu'])-1]['submenu'][] = [
-                    'url' => '/admin/webinar',
-                    'name' => 'List',
-                    'slug' => 'admin.webinar.index'
-                ];
-            }
-            if(Auth::user()->hasPermissionTo('admin.webinar.create')){
-                $data['menu'][count($data['menu'])-1]['submenu'][] = [
-                    'url' => '/admin/webinar/create',
-                    'name' => 'Create',
-                    'slug' => 'admin.webinar.create'
-                ];
-            }
-        }
 
         if(Auth::user()->hasPermissionTo('admin.user.index')){
             $data['menu'][] = [
