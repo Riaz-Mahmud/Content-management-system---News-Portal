@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             MenuItemSeeder::class,
             CategoriesSeeder::class,
             SettingsSeeder::class,
+            SlideSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();

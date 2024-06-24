@@ -6,17 +6,14 @@
             ©
             <script>
                 document.write(new Date().getFullYear())
-            </script>
-            , made by <a
-                href="{{ !empty(config('variables.creatorUrl')) ? config('variables.creatorUrl') : '' }}"
-                target="_blank"
+            </script>, made by Abdul Al Mahmud Riaz<a
+                href="{{ !empty(config('variables.creatorUrl')) ? config('variables.creatorUrl') : '' }}" target="_blank"
                 class="footer-link fw-bolder">{{ !empty(config('variables.creatorName')) ? config('variables.creatorName') : '' }}</a>
         </div>
-        <div>
-
+        {{-- <div>
             <a href="{{ config('variables.support') ? config('variables.support') : '#' }}" target="_blank"
                 class="footer-link d-none d-sm-inline-block">Support</a>
-        </div>
+        </div> --}}
     </div>
 </footer>
 <!--/ Footer-->

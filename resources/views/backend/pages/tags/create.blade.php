@@ -57,8 +57,8 @@
                             <label class="form-label" for="user-plan">Status</label>
                             <select id="user-plan" class="form-select" name="status" required>
                                 <option selected disabled value="">Select status</option>
-                                <option value="Active" {{old('status') == 'Active' ? 'selected' : ''}}>Active</option>
-                                <option value="Inactive" {{old('status') == 'Inactive' ? 'selected' : ''}}>Inactive</option>
+                                <option value="Active" {{ (old('status') ?? 'Active') == 'Active' ? 'selected' : '' }}>Active</option>
+                                <option value="Inactive" {{ (old('status') ?? 'Active') == 'Inactive' ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>

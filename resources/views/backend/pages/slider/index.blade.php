@@ -65,7 +65,11 @@
                                 {{ $key + 1 }}
                             </td>
                             <td>
+                                @can('admin.slide.item.index')
+                                <a href="{{ route('admin.slide.item.index', Crypt::encrypt($item->id)) }}">{{ $item->label }}</a>
+                                @else
                                 {{ $item->label }}
+                                @endcan
                             </td>
                             <td>
                                 @if ($item->description) {{ $item->description }} @else N/A @endif

@@ -22,15 +22,6 @@ return new class extends Migration
             $table->tinyInteger('is_deleted')->nullable()->default(0);
             $table->timestamps();
         });
-
-        DB::table('sliders')->insert(
-            array(
-                'label' => 'Home Page Slider',
-                'description' => 'It will show on frontend home page slider',
-                'status' => 'Active',
-                'is_deleted' => 0,
-            )
-        );
     }
 
     /**

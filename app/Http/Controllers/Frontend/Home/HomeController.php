@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend\Home;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Frontend\FrontendController;
 use Illuminate\Http\Request;
-use App\Models\Slide;
+use App\Models\Slider;
 use App\Models\SliderItem;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +34,7 @@ class HomeController extends FrontendController{
         $data = $this->defaultData;
 
         $data['slideItems'] = [];
-        $slider = Slide::where('label', 'Home Page Slider')->where('is_deleted', 0)->where('status', 'Active')->first();
+        $slider = Slider::where('label', 'Home Page Slider')->where('is_deleted', 0)->where('status', 'Active')->first();
         if($slider != null){
             $data['slideItems'] = SliderItem::where('slider_id', $slider->id)->where('is_deleted', 0)->where('status', 'Active')->orderBy('id', 'desc')->get();
         }
