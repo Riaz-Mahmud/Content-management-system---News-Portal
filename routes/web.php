@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\TinyMCE\FileManagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,9 @@ use App\Http\Controllers\ProfileController;
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
+
+///////////////////// TinyMCE Start //////////////////////
+Route::post('/file-manager/{type}/{folderId}', [FileManagerController::class, 'index'])->name('admin.file-manager.index');
+///////////////////// TinyMCE End //////////////////////
 
 require __DIR__.'/auth.php';

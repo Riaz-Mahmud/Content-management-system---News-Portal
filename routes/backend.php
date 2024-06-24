@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\HomeController;
+use App\Http\Controllers\Backend\News\NewsController;
 use App\Http\Controllers\Backend\Tags\TagsController;
 use App\Http\Controllers\Backend\Slide\SliderController;
 use App\Http\Controllers\Backend\Profile\ProfileController;
 use App\Http\Controllers\Backend\Category\CategoryController;
+use App\Http\Controllers\Backend\TinyMCE\FileManagerController;
 use App\Http\Controllers\Backend\Slide\SlideItem\SlideItemController;
 
 
@@ -55,7 +57,27 @@ Route::prefix('admin')->middleware(['auth','userRolePermission:admin.dashboard.i
         Route::post('/update/{id}', [TagsController::class, 'update'])->name('admin.tags.update')->middleware('permission:admin.tags.edit');
         Route::post('/delete/{id}', [TagsController::class, 'delete'])->name('admin.tags.delete')->middleware('permission:admin.tags.delete');
     });
-    ///////////////////// Tags End //////////////////////
+    ///////////////////// Tags End ////////////////////////
+
+    ///////////////////// News Start //////////////////////
+    Route::prefix('news')->group(function () {
+        Route::get('/', [NewsController::class, 'index'])->name('admin.news.index')->middleware('permission:admin.news.index');
+        Route::get('/create', [NewsController::class, 'create'])->name('admin.news.create')->middleware('permission:admin.news.create');
+        Route::get('show/{id}', [NewsController::class, 'show'])->name('admin.news.show');
+        Route::get('show/{id}/backup', [NewsController::class, 'showBackup'])->name('admin.news.show.backup');
+        Route::get('/make/backup/{id}', [NewsController::class, 'makeBackup'])->name('admin.news.make.backup');
+        Route::post('/store', [NewsController::class, 'store'])->name('admin.news.store')->middleware('permission:admin.news.create');
+        Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('admin.news.edit')->middleware('permission:admin.news.edit');
+        Route::post('/update/{id}', [NewsController::class, 'update'])->name('admin.news.update')->middleware('permission:admin.news.edit');
+        Route::post('/delete/{id}', [NewsController::class, 'delete'])->name('admin.news.delete')->middleware('permission:admin.news.delete');
+        Route::post('/status/{id}', [NewsController::class, 'status'])->name('admin.news.status');
+        Route::post('/status/comment/{id}', [NewsController::class, 'statusComment'])->name('admin.news.status.comment');
+        Route::get('/{id}/comments', [NewsController::class, 'comments'])->name('admin.news.comments');
+        Route::post('{newsId}/comment/status/{id}', [NewsController::class, 'commentStatusUpdate'])->name('admin.news.comment.status');
+        Route::post('{newsId}/comment/delete/{commentId}', [NewsController::class, 'commentDelete'])->name('admin.news.comment.delete');
+        // Route::post('/file-manager/{type}/{folderId}', [FileManagerController::class, 'index'])->name('admin.file-manager.index');
+    });
+    ///////////////////// News End //////////////////////
 
     ///////////////////// Profile Start //////////////////////
     Route::prefix('profile')->group(function () {

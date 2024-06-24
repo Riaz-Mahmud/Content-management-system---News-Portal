@@ -59,6 +59,7 @@ class FolderHelper{
             $request->session()->forget('folder_uuid');
 
         }else {
+            dd('Error while moving folder');
             // remove session
             $request->session()->forget('folder_uuid');
 
