@@ -5,8 +5,8 @@
         <i class='bx bx-user'></i> Profile</a>
     </li>
     @if (Auth::user()->id == $data['profile']->user_id)
-        <li class="nav-item"><a class="nav-link" href="{{ route('profile.edit', $data['profile']->email) }}"><i class='bx bx-group'></i>
-                Edit</a>
+        <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'admin.profile.edit') active @endif" href="{{ route('admin.profile.edit', $data['profile']->email) }}">
+            <i class='bx bx-group'></i> Edit</a>
         </li>
     @endif
     <li class="nav-item"><a class="nav-link @if(Route::currentRouteName() == 'admin.profile.security') active @endif" href="{{ route('admin.profile.security',$data['profile']->email) }}">

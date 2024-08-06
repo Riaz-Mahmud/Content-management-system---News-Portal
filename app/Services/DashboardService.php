@@ -97,8 +97,7 @@ class DashboardService{
     public function getNewVisitors(){
 
         // get unique IP count from activity log
-        $visitors = ActivityLog::where('created_at', '>=', Carbon::now()->subDays(7))
-            ->get();
+        $visitors = ActivityLog::where('created_at', '>=', Carbon::now()->subDays(7))->get();
 
         $data = [];
 
@@ -187,7 +186,7 @@ class DashboardService{
 
     public function getVisitedCountryList(){
 
-        $data['countries'] = [
+        $countries = [
             [
                 'index' => 'map_1',
                 'country_name' => 'AFGHANISTAN',
@@ -1276,21 +1275,29 @@ class DashboardService{
             ]
         ];
 
-        $activityLogs = ActivityLog::whereNotNull('country')->orderBy('country')->get();
-        $uniqueCountries = $activityLogs->unique('country');
+        // Retrieve and process activity logs
+        $activityLogs = ActivityLog::whereNotNull('country')->get();
 
-        foreach ($data['countries'] as $key => $country) {
+        // Process unique countries and counts in one go
+        $countryCounts = [];
+        foreach ($activityLogs as $log) {
+            $country = ucwords(strtolower($log->country));
+            if (!isset($countryCounts[$country])) {
+                $countryCounts[$country] = ['visited' => true, 'count' => 0];
+            }
+            $countryCounts[$country]['count']++;
+        }
 
+        // Update countries with visit status and count
+        foreach ($countries as &$country) {
             $countryName = ucwords(strtolower($country['country_name']));
-
-            if ($uniqueCountries->contains('country', $countryName)) {
-                $data['countries'][$key]['visited'] = true;
-                $data['countries'][$key]['count'] = $activityLogs->unique('ip')->where('country', $countryName)->count();
+            if (isset($countryCounts[$countryName])) {
+                $country['visited'] = true;
+                $country['count'] = $countryCounts[$countryName]['count'];
             }
         }
 
-
-        return $data['countries'];
+        return $countries;
     }
 
 }

@@ -66,7 +66,9 @@ class ActivityLogJob implements ShouldQueue
 
             $data['ip_info'] = json_encode($ipDetails);
             $data['agent'] = $this->data['agent'] ?? null;
-            $data['device_data'] = $this->BrowserDetails($this->data['device_data']);
+            // $data['device_data'] = $this->BrowserDetails($this->data['device_data']);
+
+            $data['created_at'] = now();
 
             ActivityLog::insert($data);
 
@@ -106,7 +108,7 @@ class ActivityLogJob implements ShouldQueue
             return json_encode($details);
 
         } catch (\Exception $e) {
-            return null;
+            return [];
         }
     }
 }

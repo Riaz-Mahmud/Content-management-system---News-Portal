@@ -31,34 +31,7 @@
         @if (auth()->check() && auth()->user()->id == $data['rose']->user_id)
             <div class="profile-card-setting fl-wrap">
                 <div class="profile-settings row custom-form">
-                    <a href="{{route('news.create')}}" class="btn big-btn color-bg flat-btn" style="margin-bottom: 5px; display:block; margin-top: 5px; margin-left: 40px; margin-right:40px;">Create Article <i class="fal fa-plus"></i></a>
-
-                    <a href="{{route('blog.create')}}" class="btn big-btn color-bg flat-btn" style="margin-bottom: 5px; display:block; margin-top: 5px; margin-left: 40px; margin-right:40px;">Create Blog <i class="fal fa-plus"></i></a>
-
                     <a href="{{route('profile.edit', $data['rose']->email)}}" class="btn big-btn color-bg flat-btn" style="margin-bottom: 5px; display:block; margin-top: 5px; margin-left: 40px; margin-right:40px;">Edit Profile <i class="fal fa-edit"></i></a>
-
-                    <a href="{{route('profile.change-password',$data['rose']->email)}}" class="btn big-btn color-bg flat-btn" style="margin-bottom: 5px; display:block; margin-top: 5px; margin-left: 40px; margin-right:40px;">Change Password <i class="fal fa-edit"></i></a>
-
-                    <a href="{{route('profile.social')}}" class="btn big-btn color-bg flat-btn" style="margin-bottom: 5px; display:block; margin-top: 5px; margin-left: 40px; margin-right:40px;">Social Media  <i class="fal fa-plus"></i></a>
-
-                    <a href="{{route('profile.publication')}}" class="btn big-btn color-bg flat-btn" style="margin-bottom: 5px; display:block; margin-top: 5px; margin-left: 40px; margin-right:40px;">Publication <i class="fal fa-plus"></i></a>
-
-                </div>
-            </div>
-        @endif
-        @if (count($data['rose']['socialMedia'])>0)
-            <div class="profile-card-footer fl-wrap">
-                <div class="profile-card-footer_title">Follow: </div>
-                <div class="profile-card-social">
-                    <ul>
-                        @foreach ($data['rose']['socialMedia'] as $social)
-                            <li>
-                                <a href="{{$social->link}}" target="_blank">
-                                    <i class="@foreach (config('frontend.socialForUserAdd') as $socialType) @if ($socialType['type'] == $social->type) {{$socialType['icon']}} @endif @endforeach"></i>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
                 </div>
             </div>
         @endif

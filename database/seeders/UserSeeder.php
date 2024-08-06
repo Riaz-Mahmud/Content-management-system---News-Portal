@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Admin2',
-                'email' => 'admin2@gmai.com',
+                'email' => 'admin2@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('pass'),
             ]

@@ -923,7 +923,7 @@
                     <div class="col-md-6 pe-md-4 card-separator">
                         <div class="card-title d-flex align-items-start justify-content-between">
                             <h5 class="mb-0">Visitors</h5>
-                            <small>Last Week</small>
+                            <small>Last 7 Days</small>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="mt-auto">
@@ -944,7 +944,7 @@
                     <div class="col-md-6 ps-md-4">
                         <div class="card-title d-flex align-items-start justify-content-between">
                             <h5 class="mb-0">Activity</h5>
-                            <small>Last Week</small>
+                            <small>Last 7 Days</small>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="mt-auto">
@@ -976,7 +976,7 @@
                     </div>
                     <div class="col-md-6">
                         <div style="display: flex; justify-content: space-between;">
-                            <h5 class="mb-0">User</h5>
+                            <h5 class="mb-0">Admin</h5>
                             <h4 class="card-title text-primary mb-1"> {{ $data['active_data']['users'] }} </h4>
                         </div>
                         <div style="display: flex; justify-content: space-between;">

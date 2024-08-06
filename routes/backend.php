@@ -2,11 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\HomeController;
+use App\Http\Controllers\Backend\Ad\AdController;
 use App\Http\Controllers\Backend\Menu\MenuController;
 use App\Http\Controllers\Backend\News\NewsController;
 use App\Http\Controllers\Backend\Page\PageController;
 use App\Http\Controllers\Backend\Poll\PollController;
+use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Tags\TagsController;
+use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\Backend\Slide\SliderController;
 use App\Http\Controllers\Backend\Profile\ProfileController;
 use App\Http\Controllers\Backend\Category\CategoryController;
@@ -143,16 +146,50 @@ Route::prefix('admin')->middleware(['auth','userRolePermission:admin.dashboard.i
     });
     ///////////////////// Page End //////////////////////
 
+    ///////////////////// AD Start //////////////////////
+    Route::prefix('ad')->group(function () {
+        Route::get('/', [AdController::class, 'index'])->name('admin.ad.index')->middleware('permission:admin.ad.index');
+        Route::get('/create', [AdController::class, 'create'])->name('admin.ad.create')->middleware('permission:admin.ad.create');
+        Route::post('/store', [AdController::class, 'store'])->name('admin.ad.store')->middleware('permission:admin.ad.create');
+        Route::get('/edit/{id}', [AdController::class, 'edit'])->name('admin.ad.edit')->middleware('permission:admin.ad.edit');
+        Route::post('/update/{id}', [AdController::class, 'update'])->name('admin.ad.update')->middleware('permission:admin.ad.edit');
+        Route::post('/delete/{id}', [AdController::class, 'delete'])->name('admin.ad.delete')->middleware('permission:admin.ad.delete');
+    });
+    ///////////////////// AD End //////////////////////
+
 
     ///////////////////// Profile Start //////////////////////
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('admin.profile.index');
         Route::get('/{email}/security', [ProfileController::class, 'security'])->name('admin.profile.security');
         Route::get('/{email}/article', [ProfileController::class, 'article'])->name('admin.profile.article.show');
+        Route::get('/{email}/edit', [ProfileController::class, 'edit'])->name('admin.profile.edit');
         Route::get('/{email}', [ProfileController::class, 'show'])->name('admin.profile.show');
-        Route::post('/update/{id}', [ProfileController::class, 'update'])->name('admin.profile.update');
+        Route::post('/update/{email}', [ProfileController::class, 'update'])->name('admin.profile.update');
         Route::post('/updatePassword', [ProfileController::class, 'updatePassword'])->name('admin.profile.updatePassword');
     });
     ///////////////////// Profile End //////////////////////
+
+    ///////////////////// User Start //////////////////////
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('admin.user.index')->middleware('permission:admin.user.index');
+        Route::get('/getAllUsers', [UserController::class, 'getAllUsers'])->name('admin.user.getAllUsers')->middleware('permission:admin.user.index');
+        // Route::get('/create', [UserController::class, 'create'])->name('admin.user.create');
+        // Route::post('/store', [UserController::class, 'store'])->name('admin.user.store');
+        // Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
+        Route::get('/update/status/{id}', [UserController::class, 'updateStatus'])->name('admin.user.update.status')->middleware('permission:admin.user.delete');
+        Route::get('/delete/{id}', [UserController::class, 'delete'])->name('admin.user.delete')->middleware('permission:admin.user.delete');
+    });
+    ///////////////////// User End //////////////////////
+
+    ///////////////////// Role Start //////////////////////
+    Route::prefix('role')->group(function () {
+        Route::get('/', [RoleController::class, 'index'])->name('admin.role.index')->middleware('permission:admin.role.index');
+        Route::post('/store', [RoleController::class, 'store'])->name('admin.role.store')->middleware('permission:admin.role.create');
+        Route::post('/update/{id}', [RoleController::class, 'update'])->name('admin.role.update')->middleware('permission:admin.role.edit');
+        Route::post('/update/user/role', [RoleController::class, 'updateUserRole'])->name('admin.role.update.user')->middleware('permission:admin.user.assign.role');
+        Route::post('/delete/{id}', [RoleController::class, 'delete'])->name('admin.role.delete')->middleware('permission:admin.role.delete');
+    });
+    ///////////////////// Role End //////////////////////
 
 });

@@ -26,7 +26,7 @@ class BackendController extends Controller{
                 //'device_data' => new Agent(),
             ];
 
-            //ActivityLogJob::dispatch($log);
+            ActivityLogJob::dispatch($log);
 
         }catch(\Exception $e){
             Log::info('Activity Log Error: ' . $e->getMessage());

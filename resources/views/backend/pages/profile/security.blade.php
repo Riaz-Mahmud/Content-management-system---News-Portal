@@ -125,7 +125,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data['rows'] as $log)
+                            @forelse ($data['rows'] as $log)
                                 <tr>
                                     <td class="text-truncate"><i
                                             class='bx
@@ -138,7 +138,11 @@
                                     <td class="text-truncate">{{ $log->city }}, {{ $log->country }}, {{ $log->postal_code }} </td>
                                     <td class="text-truncate">{{ $log->timezone }}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center">No recent devices found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

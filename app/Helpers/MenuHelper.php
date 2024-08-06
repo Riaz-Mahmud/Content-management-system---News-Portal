@@ -20,7 +20,7 @@ class MenuHelper{
             $data['menu'][] = [
                 'name' => 'Dashboard',
                 'icon' => 'menu-icon tf-icons bx bx-home',
-                'slug' => 'admin.dashboard',
+                'slug' => 'dashboard',
                 'url' => '/admin/dashboard',
             ];
         }

@@ -55,7 +55,7 @@
     <!-- User Profile Content -->
     <div class="row">
 
-        @foreach ($data['articles'] as $article)
+        @forelse ($data['articles'] as $article)
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card h-100">
                     <div class="card-header flex-grow-0">
@@ -128,7 +128,13 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    No article found!
+                </div>
+            </div>
+        @endforelse
 
     </div>
     <!--/ User Profile Content -->

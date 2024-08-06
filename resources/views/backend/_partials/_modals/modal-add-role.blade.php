@@ -33,7 +33,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    @foreach (config('ec-backend.permission') as $key => $permissions)
+                                    @foreach (config('backend.permission') as $key => $permissions)
                                         <tr>
                                             <td class="text-nowrap fw-semibold">{{$key}}</td>
                                             <td>
