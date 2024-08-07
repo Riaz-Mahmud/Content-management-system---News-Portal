@@ -1,5 +1,5 @@
 <div class="section-title sect_dec">
-    <h2>Market and Politics</h2>
+    <h2>More News</h2>
     <h4>Don't miss daily news</h4>
 </div>
 <div class="grid-post-wrap ">
@@ -30,4 +30,4 @@
         </div>
     </div>
 </div>
-<a href="blog2.html" class="dark-btn fl-wrap"> Read all News </a>
+<a href="{{route('all-news')}}" class="dark-btn fl-wrap"> Read all News </a>

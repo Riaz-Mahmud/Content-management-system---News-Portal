@@ -5,6 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
+    'dev_name' => env('APP_DEV_NAME', 'Abdul Al Mahmud Riaz'),
     /*
     |--------------------------------------------------------------------------
     | Application Name

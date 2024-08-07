@@ -708,16 +708,16 @@ $(document).ready(function () {
 
 // INclude header menu All page
 $(function(){
-  $("#headermenu").load("partials/header.html"); 
+  $("#headermenu").load("partials/header.html");
 });
-// INclude header menu All page End 
+// INclude header menu All page End
 
 
 // INclude header menu All page
 $(function(){
-    $("#footer").load("partials/footer.html"); 
+    $("#footer").load("partials/footer.html");
   });
-  // INclude header menu All page End 
+  // INclude header menu All page End
 
 
 
@@ -729,12 +729,12 @@ $(function(){
           options[j].classList.remove("selected");
         }
       }
-  
+
       options[i].classList.add("selected");
       for (let k = 0; k < options.length; k++) {
         options[k].classList.add("selectall");
-      } 
-  
+      }
+
       let forVal = options[i].getAttribute("for");
       let selectInput = document.querySelector("#"+forVal);
       let getAtt = selectInput.getAttribute("type");
@@ -744,7 +744,7 @@ $(function(){
         options[i].classList.remove("selected");
         selectInput.setAttribute("type", "checkbox");
       }
-  
+
       let array = [];
       for (let l = 0; l < options.length; l++) {
         if(options[l].classList.contains("selected")){

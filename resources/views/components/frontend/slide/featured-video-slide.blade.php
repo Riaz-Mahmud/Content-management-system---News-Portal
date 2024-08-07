@@ -7,7 +7,7 @@
                 <div class="video-section-title fl-wrap">
                     <h2>Featured  Video</h2>
                     <h4>Stay up-to-date</h4>
-                    <a href="category.html">View All <i class="fas fa-caret-right"></i></a>
+                    <a href="{{ route('all-news') }}">View All <i class="fas fa-caret-right"></i></a>
                 </div>
                 <a class="video-holder vh-main fl-wrap  image-popup"  href="#">
                     <div class="bg"></div>

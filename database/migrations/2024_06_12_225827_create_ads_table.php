@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('code');
             $table->string('src')->default('null');
-            $table->string('height')->default('500');
-            $table->string('width')->default('500');
+            $table->string('height')->default('500')->nullable();
+            $table->string('width')->default('500')->nullable();
             $table->string('url')->nullable();
             $table->timestamp('start_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('end_date')->nullable();

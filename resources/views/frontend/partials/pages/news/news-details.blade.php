@@ -34,7 +34,7 @@
                         <!-- single-post-header  -->
                         <div class="single-post-header fl-wrap">
                             @foreach ( $data['rose']['category'] as $newsCategories)
-                            <a class="post-category-marker" href="{{URL::to($newsCategories->slug)}}" style="margin-right: 2px;">{{$newsCategories->title}}</a>
+                            <a class="post-category-marker" href="{{URL::to('category',$newsCategories->slug)}}" style="margin-right: 2px;">{{$newsCategories->title}}</a>
                             @endforeach
                             <div class="clearfix"></div>
                             <h1>{{$data['rose']->title}}</h1>
@@ -139,7 +139,7 @@
                                     <span class="tags-title"><i class="fas fa-tag"></i> Tags : </span>
                                     <div class="tags-widget">
                                         @foreach ($data['rose']['tags'] as $tag)
-                                            <a href="{{URL::to('tag',\Crypt::encrypt($tag->id))}}">{{$tag->label}}</a>
+                                            <a href="{{URL::to('tag',$tag->label)}}">{{$tag->label}}</a>
                                         @endforeach
                                     </div>
                                 </div>
@@ -180,18 +180,7 @@
                             </div>
                             <div class="profile-card-footer fl-wrap">
                                 <a href="{{ route('profile.show', $data['rose']->user->email) }}" class="post-author_link">View Profile <i class="fas fa-caret-right"></i></a>
-                                @if (count($data['rose']->user->socialMedia)>0)
-                                    <div class="profile-card-footer_soc">
-                                        <div class="profile-card-footer_title">Follow: </div>
-                                        <div class="profile-card-social">
-                                            <ul>
-                                                @foreach ($data['rose']->user->socialMedia()->where('status','Active')->where('is_deleted', 0)->get() as $social)
-                                                    <li><a href="{{ $social->link }}" target="_blank"><i class="@foreach (config('frontend.socialForUserAdd') as $socialType) @if ($socialType['type'] == $social->type) {{$socialType['icon']}} @endif @endforeach"></i></a></li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </div>
-                                @endif
+
                             </div>
                         </div>
                         <!--post-author end-->
@@ -312,7 +301,7 @@
                             <div class="box-widget-content">
                                 <ul class="cat-wid-list">
                                     @foreach ($data['rose']['category'] as $category)
-                                        <li><a href="{{URL::to($category->slug)}}">{{$category->title}}</a><span>{{$category->count}}</span></li>
+                                        <li><a href="{{URL::to('category', $category->slug)}}">{{$category->title}}</a><span>{{$category->count}}</span></li>
                                     @endforeach
                                 </ul>
                             </div>

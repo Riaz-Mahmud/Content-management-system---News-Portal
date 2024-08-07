@@ -90,7 +90,12 @@
                             <div class="box-widget-content">
                                 <ul class="cat-wid-list">
                                     @foreach ($data['allCategory'] as $category)
-                                        <li><a href="{{URL::to($category->slug)}}">{{$category->title}}</a><span>{{$category->count}}</span></li>
+                                        <li>
+                                            <a href="{{URL::to('category',$category->slug)}}">
+                                                {{$category->title}}
+                                            </a>
+                                            <span>{{$category->count}}</span>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>

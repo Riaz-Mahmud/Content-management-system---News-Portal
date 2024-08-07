@@ -14,7 +14,7 @@
             @if ($data['category'] != null)
 
                 @foreach ($data['category'] as $category)
-                    <a class="post-category-marker" href="{{URL::to($category['slug'])}}" style="margin-right: 2px">{{$category['title']}}</a>
+                    <a class="post-category-marker" href="{{URL::to('category',$category['slug'])}}" style="margin-right: 2px">{{$category['title']}}</a>
                 @endforeach
 
             @endif

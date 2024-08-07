@@ -24,7 +24,7 @@
                             <div class="footer-list footer-box fl-wrap">
                                 <ul>
                                     @foreach ($data['categories'] as $category)
-                                        <li> <a href="{{ URL::to($category['slug'])}}">{{ $category['title'] }}</a></li>
+                                        <li> <a href="{{ URL::to('category',$category['slug'])}}">{{ $category['title'] }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -71,8 +71,8 @@
     </div>
     <div class="footer-bottom fl-wrap">
         <div class="container">
-            <div class="copyright"><span>&#169; Infra-Red Communications Limited
-            </span> . All rights reserved. </div>
+            <div class="copyright"><span>&#169; {{ date('Y') }} {{ config('app.dev_name') }}.
+            </span> All rights reserved. </div>
             <div class="to-top"> <i class="fas fa-caret-up"></i></div>
             <div class="subfooter-nav">
                 <ul>

@@ -33,7 +33,7 @@
                         </div>
                         <!--list-post end-->
                     </div>
-                    <a href="blog2.html" class="dark-btn fl-wrap"> Read all News </a>
+                    <a href="{{route('all-news')}}" class="dark-btn fl-wrap"> Read all News </a>
                 </div>
                 <div class="col-md-7">
                     <div class="picker-wrap-container fl-wrap">

@@ -41,24 +41,20 @@
                             </div>
                         </div>
                         <div class="list-post-wrap">
-
-                            @if (count($data['rows']) > 0)
-                                @foreach ($data['rows'] as $item)
-                                    <x-frontend.news.single-news-by-category :news="$item" :category="$data['fixedCategory']"/>
-                                @endforeach
-                            @else
+                            @forelse ($data['rows'] as $item)
+                                <x-frontend.news.single-news-by-category :news="$item" :category="$data['fixedCategory']"/>
+                            @empty
                                 <div class="col-md-12">
                                     <div class="alert alert-warning">
                                         <strong>Warning!</strong> Not data found.
                                     </div>
                                 </div>
-                            @endif
-
+                            @endforelse
                         </div>
 
                         <!--pagination-->
                         @if(!empty($data['rows']))
-                        {!! $data['rows']->links('vendor.pagination.profile-page-news') !!}
+                            {!! $data['rows']->links('vendor.pagination.profile-page-news') !!}
                         @endif
                         <!--pagination end-->
                     </div>

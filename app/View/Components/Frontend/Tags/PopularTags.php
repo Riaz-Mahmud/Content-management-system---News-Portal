@@ -22,7 +22,7 @@ class PopularTags extends Component
                     'id' => $item->id,
                     'hashId' => Crypt::encrypt($item->id),
                     'label' => $item->label,
-                    'slug' => 'tag/'.Crypt::encrypt($item->id),
+                    'slug' => 'tag/'.$item->label,
                     'count' => $item->count,
                 ];
             }

@@ -16,7 +16,7 @@
                                 <div class="hero-item fl-wrap">
                                     <div class="container">
                                         @if ($item['category'] != null)
-                                            <a class="post-category-marker" href="{{URL::to($item['category']->slug)}}">{{$item['category']->title}}</a>
+                                            <a class="post-category-marker" href="{{URL::to('category',$item['category']->slug)}}">{{$item['category']->title}}</a>
                                         @endif
                                         <div class="clearfix"></div>
                                         <h2><a href="{{URL::to($item['slug'])}}">{{$item['title']}}</a></h2>

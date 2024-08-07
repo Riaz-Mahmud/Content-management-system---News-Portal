@@ -1,7 +1,7 @@
 
 @extends('frontend.layout.app')
 
-@section('title', 'Home')
+@section('title', 'All News')
 
 @section('css')
     <style>
@@ -58,15 +58,13 @@
         </header>
         <div id="wrapper">
             <div class="content">
-                <x-frontend.slide.slide :code="$data['slideItems']" />
                 <x-frontend.user.user-login-registration />
                 <section>
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="main-container fl-wrap fix-container-init">
-                                    @include('frontend.layout.happening')
-                                    @include('frontend.layout.marketpolitics')
+                                    @include('frontend.layout.all-news')
                                 </div>
 
                             </div>
@@ -83,11 +81,6 @@
                         </div>
                         <div class="limit-box fl-wrap"></div>
                     </div>
-                </section>
-                <section>
-                    @include('frontend.layout.features')
-                    <x-frontend.slide.single-news-with-left-side-slide :code="$data['singleNewsWithLeftSideSlide']" />
-                    <x-frontend.slide.three-item-news-slide-right-side-text :code="$data['threeItemNewsSlideRightSideText']" />
                 </section>
                 <x-frontend.footer.footer :categories="$data['categories']" :pages="$data['pages']" />
             </div>

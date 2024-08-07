@@ -71,8 +71,6 @@ class UserController extends FrontendController{
                 $data['totalViewCount'] += $news['view_count'];
             }
 
-            $data['rose']['socialMedia'] = $data['user']->socialMedia()->where('is_deleted', 0)->where('status', 'Active')->get();
-
             $data['menu'] = Menu::where('is_deleted',0)->where('status','Active')->where('label','Main Menu')->first();
             $data['hotNewses'] = News::where('is_deleted', 0)->where('status', 'Active')->orderBy('id', 'desc')->limit(5)->get();
             $data['categories'] = Category::where('is_deleted', 0)->where('status', 'Active')->get();
@@ -82,7 +80,7 @@ class UserController extends FrontendController{
             return view('frontend.partials.pages.profile.profile')->with('data' , $data);
 
         }catch(\Exception $e){
-            Session()->flash('error', 'Something went wrong');
+            Session()->flash('error', 'Something went wrong' . $e->getMessage());
             return redirect()->back();
         }
     }

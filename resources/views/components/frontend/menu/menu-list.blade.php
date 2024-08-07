@@ -5,9 +5,6 @@
         <!-- logo holder end -->
         <div class="search_btn htact show_search-btn"><i class="far fa-search"></i> <span class="header-tooltip">Search</span></div>
 
-        @if (!Auth::user())
-            <div class="srf_btn htact show-reg-form"><i class="fal fa-user"></i> <span class="header-tooltip">Sign In</span></div>
-        @endif
         <!-- header-search-wrap -->
         <div class="header-search-wrap novis_sarch">
             <div class="widget-inner">
@@ -55,7 +52,7 @@
                         <li>
                             <a><img src="{{ \App\Helpers\ImageHelper::generateImage(Auth::user()->profile->image,'main') }}" alt="User" style="width: 30px; height: 30px; border-radius: 50%;"></a>
                             <ul>
-                                <li><a href="{{ route('profile.show', Auth::user()->email) }}">Profile</a></li>
+                                <li><a href="{{ route('admin.profile.show', Auth::user()->email) }}">Profile</a></li>
                                 @if (Auth::user()->hasPermissionTo('admin.dashboard.index'))
                                     <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                                 @endif

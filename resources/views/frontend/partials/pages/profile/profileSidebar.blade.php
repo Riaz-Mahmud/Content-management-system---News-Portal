@@ -31,7 +31,7 @@
         @if (auth()->check() && auth()->user()->id == $data['rose']->user_id)
             <div class="profile-card-setting fl-wrap">
                 <div class="profile-settings row custom-form">
-                    <a href="{{route('profile.edit', $data['rose']->email)}}" class="btn big-btn color-bg flat-btn" style="margin-bottom: 5px; display:block; margin-top: 5px; margin-left: 40px; margin-right:40px;">Edit Profile <i class="fal fa-edit"></i></a>
+                    <a href="{{route('admin.profile.edit', $data['rose']->email)}}" class="btn big-btn color-bg flat-btn" style="margin-bottom: 5px; display:block; margin-top: 5px; margin-left: 40px; margin-right:40px;">Edit Profile <i class="fal fa-edit"></i></a>
                 </div>
             </div>
         @endif

@@ -16,7 +16,7 @@
         </div>
         <div class="container">
             <div class="hero-section_title">
-                <h2>{{$data['rose']->first_name}} {{$data['rose']->last_name}}’s Den</h2>
+                <h2>{{$data['rose']->first_name}} {{$data['rose']->last_name}}’s Profile</h2>
             </div>
             <div class="clearfix"></div>
             <div class="breadcrumbs-list fl-wrap">
@@ -43,7 +43,7 @@
                         {{-- author artical list start --}}
                         <div>
                             <div class="section-title">
-                                <h3>{{$data['rose']->first_name}} {{$data['rose']->last_name}} Articles:</h3>
+                                <h3>{{$data['rose']->first_name}} {{$data['rose']->last_name}} Newses</h3>
                                 <div class="steader_opt steader_opt_abs">
                                     <select name="filter" id="list" data-placeholder="Persons" class="style-select no-search-select">
                                         <option>Latest</option>
