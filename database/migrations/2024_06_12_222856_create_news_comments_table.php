@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('video')->nullable();
 
-            $table->enum('status', ['Active', 'Pending', 'Inactive'])->default('Pending');
+            $table->enum('status', ['Active', 'Pending', 'Inactive'])->default('Active');
             $table->tinyInteger('is_deleted')->nullable()->default(0);
             $table->timestamps();
         });

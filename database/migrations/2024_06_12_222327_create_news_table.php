@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('view_count')->default(0);
 
             $table->enum('is_featured', ['yes', 'no'])->default('no');
-            $table->enum('can_comment', ['yes', 'no'])->default('no');
+            $table->enum('can_comment', ['yes', 'no'])->default('yes');
 
             $table->string('source_url')->nullable();
             $table->enum('source_backup', ['done', 'processing', 'pending','failed', 'queue'])->default('pending');
