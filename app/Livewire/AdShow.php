@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\AD;
+use App\Models\Ad;
 use Illuminate\Support\Facades\Crypt;
 use App\Helpers\ImageHelper;
 use Illuminate\Support\Carbon;
@@ -19,7 +19,7 @@ class AdShow extends Component
     }
 
     protected function getAds($code){
-        $ads = AD::where('code', $code)
+        $ads = Ad::where('code', $code)
         ->where('start_date', '<=', Carbon::now())
         ->where('end_date', '>=', Carbon::now())
         ->where('status', 'Active')->where('is_deleted', 0)->inRandomOrder()->first();
