@@ -6,7 +6,6 @@
 
     <x-frontend.topbar.topbar :code="$data['hotNewses']" />
     <x-frontend.menu.menu-list :code="$data['menu']" />
-    <x-frontend.user.user-login-registration />
 
       <!--section   -->
     <div class="breadcrumbs-header fl-wrap">

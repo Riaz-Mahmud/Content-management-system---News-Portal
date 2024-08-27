@@ -3,31 +3,43 @@
 @section('title', 'News List')
 
 @section('vendor-style')
-    <link rel="stylesheet" href="{{asset('assets/backend/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/backend/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/backend/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/backend/vendor/libs/select2/select2.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/backend/vendor/libs/formvalidation/dist/css/formValidation.min.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/backend/vendor/libs/select2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/backend/vendor/libs/formvalidation/dist/css/formValidation.min.css') }}" />
+    <style>
+        /* Additional styling for cards */
+        .news-card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-card img {
+            object-fit: cover;
+            height: 150px;
+        }
+
+        .news-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .news-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+    </style>
 @endsection
 
 @section('vendor-script')
-    <script src="{{asset('assets/backend/vendor/libs/moment/moment.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/datatables/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/datatables-responsive/datatables.responsive.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/datatables-buttons/datatables-buttons.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/jszip/jszip.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/pdfmake/pdfmake.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/datatables-buttons/buttons.html5.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/datatables-buttons/buttons.print.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/select2/select2.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/cleavejs/cleave.js')}}"></script>
-    <script src="{{asset('assets/backend/vendor/libs/cleavejs/cleave-phone.js')}}"></script>
+    <script src="{{ asset('assets/backend/vendor/libs/select2/select2.js') }}"></script>
+    <script src="{{ asset('assets/backend/vendor/libs/formvalidation/dist/js/FormValidation.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js') }}"></script>
 @endsection
 
 @section('content')
@@ -40,111 +52,71 @@
         @include('backend._partials.successMsg')
     @endif
 
-    <div class="card">
-        <div class="card-header border-bottom">
-            <h5 class="card-title">News List</h5>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+            <h5 class="card-title mb-0">News List</h5>
+            <a href="{{ route('admin.news.create') }}" class="btn btn-primary">Add News</a>
         </div>
-        <div class="card-datatable table-responsive" width="100%">
-            <table class="datatables-users table border-top" width="100%">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Title</th>
-                        <th>Slug</th>
-                        <th>Comments</th>
-                        <th>Author</th>
-                        <th>Backup</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($data['rows'] as $key => $item)
-                        <tr>
-                            <td>
-                                {{ $key + 1 }}
-                            </td>
-                            <td>
-                                {{ $item->title }}
-                            </td>
-                            <td>
-                                {{ Str::limit($item->slug, 50) }}
-                            </td>
-                            <td>
-                                {{-- div item center  --}}
-                                <div class='align-items-center'>
-                                    <div>
-                                        <form id="newsCommentStatusChange{{$key}}" action="{{ route('admin.news.status.comment', $item->hashId) }}" method="POST" class="d-inline-block">
-                                        @csrf
-                                            <input class="form-check input-switch" onchange="document.getElementById('newsCommentStatusChange{{$key}}').submit()" type="checkbox" id="flexSwitchCheckDefault" {{ $item->can_comment == 'yes' ? 'checked' : '' }} style="cursor: pointer; width: 40px; height: 20px;border-radius: 50%;" title="Comments Status {{ $item->can_comment == 'yes' ? 'On' : 'Off' }}">
-                                        </form>
-                                    </div>
-                                    <div>
-                                        <a href="{{ route('admin.news.comments', $item->hashId) }}" class="btn btn-sm btn-primary mb-1 mt-1" title="View" target="_blank">
-                                            <i class="fa fa-eye"> </i> <span title="Total comments count"> {{ $item->comments->count() }}</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                {{ $item->createBy->name }}
-                            </td>
-                            <td>
-                                @if ($item->source_backup == 'done')
-                                    <span class="badge bg-success" title="Backup done">Done</span>
-                                @elseif ($item->source_backup == 'pending')
-                                    <span class="badge bg-warning" title="Backup pending">Pending</span>
-                                @elseif ($item->source_backup == 'failed')
-                                    <span class="badge bg-danger" title="Backup failed">Failed</span>
-                                @elseif ($item->source_backup == 'processing')
-                                    <span class="badge bg-info" title="Backup processing">Processing</span>
-                                @elseif ($item->source_backup == 'queue')
-                                    <span class="badge bg-info" title="Backup queue">Queue</span>
-                                @endif
 
-                                @if ($item->source_backup == 'done')
-                                    <a href="{{ route('admin.news.show.backup', $item->hashId) }}" class="btn btn-sm btn-primary mb-1 mt-1" title="Open backup folder" target="_blank">
-                                        <i class="bx bxs-folder-open"></i>
-                                    </a>
-                                @elseif ($item->source_backup == 'pending' || $item->source_backup == 'failed')
-                                    <a href="{{ route('admin.news.make.backup', $item->hashId) }}" class="btn btn-sm btn-primary mb-1 mt-1" title="Make backup">
-                                        <i class="bx bxs-download"></i>
-                                    </a>
-                                @endif
-                            </td>
-                            <td>
-                                <div class="form-check form-switch">
-                                    <form id="newsStatusChange{{$key}}" action="{{ route('admin.news.status', $item->hashId) }}" method="POST" class="d-inline-block">
-                                    @csrf
-                                        <input class="form-check input-switch" onchange="document.getElementById('newsStatusChange{{$key}}').submit()" type="checkbox" id="flexSwitchCheckDefault" {{ $item->status == 'Active' ? 'checked' : '' }} style="cursor: pointer; width: 40px; height: 20px;border-radius: 50%;" title="Click to change the status to '{{ $item->status != 'Active' ? 'Active' : 'Inactive' }}'">
-                                    </form>
-                                    {{ $item->status }}
-                                </div>
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.news.show', $item->hashId) }}" class="btn btn-sm btn-primary mb-1 mt-1" title="View" target="_blank">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                @can('admin.news.edit')
-                                <a href="{{ route('admin.news.edit', $item->hashId) }}" class="btn btn-sm btn-primary mb-1 mt-1" title="Edit">
+        @foreach ($data['rows'] as $key => $item)
+            <div class="col-md-4 mb-4">
+                <div class="card news-card">
+                    <img src="{{ $item->image_src }}" alt="{{ $item->title }}" class="card-img-top">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ Str::limit($item->title, 100) }}</h6>
+                        {{-- description --}}
+                        <p class="card-text">{{ Str::limit($item->description, 80) }}</p>
+                        <hr>
+                        <p class="news-meta">By {{ $item->createBy->name }} | {{ $item->created_at->format('M d, Y h:i A') }}</p>
+
+                        <div class="news-actions">
+                            <a href="{{ route('admin.news.show', $item->hashId) }}" class="btn btn-sm btn-info" title="View" target="_blank">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            @can('admin.news.edit')
+                                <a href="{{ route('admin.news.edit', $item->hashId) }}" class="btn btn-sm btn-warning" title="Edit">
                                     <i class="fa fa-edit text-white"></i>
                                 </a>
-                                @endcan
-                                @can('admin.news.delete')
+                            @endcan
+                            @can('admin.news.delete')
                                 <form action="{{ route('admin.news.delete', $item->hashId) }}" method="POST" class="d-inline-block">
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-danger mb-1 mt-1" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </form>
-                                @endcan
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{-- div for paginate --}}
-            <div class="d-flex justify-content-center mt-3 mb-3">
-                {{ $data['rows']->links() }}
+                            @endcan
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <div class="form-check form-switch">
+                            <form id="newsStatusChange{{ $key }}" action="{{ route('admin.news.status', $item->hashId) }}" method="POST">
+                                @csrf
+                                <input class="form-check-input" onchange="document.getElementById('newsStatusChange{{ $key }}').submit()" type="checkbox" {{ $item->status == 'Active' ? 'checked' : '' }} style="cursor: pointer;" title="Change status">
+                            </form>
+                            <span class="badge {{ $item->status == 'Active' ? 'bg-success' : 'bg-danger' }}">{{ $item->status }}</span>
+                        </div>
+
+                        <div>
+                            <form id="newsCommentStatusChange{{ $key }}" action="{{ route('admin.news.status.comment', $item->hashId) }}" method="POST">
+                                @csrf
+                                <input class="form-check-input" onchange="document.getElementById('newsCommentStatusChange{{ $key }}').submit()" type="checkbox" {{ $item->can_comment == 'yes' ? 'checked' : '' }} style="cursor: pointer;" title="Comments Status {{ $item->can_comment == 'yes' ? 'On' : 'Off' }}">
+                                {{-- text --}}
+                                <span class="badge bg-info">Comments {{ $item->can_comment == 'yes' ? 'On' : 'Off' }}</span>
+
+                            </form>
+                            <a href="{{ route('admin.news.comments', $item->hashId) }}" class="btn btn-sm btn-primary mt-1" title="View Comments" target="_blank">
+                                <i class="fa fa-comments"></i> <span>{{ $item->comments->count() }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
+        @endforeach
+
+        {{-- Pagination --}}
+        <div class="col-12 d-flex justify-content-center mt-4">
+            {{ $data['rows']->links() }}
         </div>
     </div>
 

@@ -20,6 +20,7 @@ class PageController extends FrontendController{
         $data = $this->defaultData;
 
         $data['rows'] = Page::where('slug', $slug)->first();
+        $data['rows']->content = htmlspecialchars_decode($data['rows']->content);
 
         parent::log($request, 'View Page: '.$data['rows']->title);
 

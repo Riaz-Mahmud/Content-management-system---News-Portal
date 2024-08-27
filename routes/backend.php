@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\Tags\TagsController;
 use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\Backend\Slide\SliderController;
 use App\Http\Controllers\Backend\Profile\ProfileController;
+use App\Http\Controllers\Backend\Setting\SettingController;
 use App\Http\Controllers\Backend\Category\CategoryController;
 use App\Http\Controllers\Backend\TinyMCE\FileManagerController;
 use App\Http\Controllers\Backend\Menu\MenuItem\MenuItemController;
@@ -191,5 +192,13 @@ Route::prefix('admin')->middleware(['auth','userRolePermission:admin.dashboard.i
         Route::post('/delete/{id}', [RoleController::class, 'delete'])->name('admin.role.delete')->middleware('permission:admin.role.delete');
     });
     ///////////////////// Role End //////////////////////
+
+    ///////////////////// Setting Start //////////////////////
+    Route::prefix('setting')->group(function () {
+        Route::get('/', [SettingController::class, 'index'])->name('admin.setting.index')->middleware('permission:admin.setting.index');
+        Route::get('/edit/{id}', [SettingController::class, 'edit'])->name('admin.setting.edit')->middleware('permission:admin.setting.edit');
+        Route::post('/update/{id}', [SettingController::class, 'update'])->name('admin.setting.update')->middleware('permission:admin.setting.edit');
+    });
+    ///////////////////// Setting End //////////////////////
 
 });

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use App\Models\CategoryNews;
 use Illuminate\Http\Request;
 use App\Helpers\FolderHelper;
+use App\Helpers\ImageHelper;
 use App\Http\Controllers\Backend\BackendController;
 use App\Jobs\WebsiteBackupJob;
 use Illuminate\Support\Facades\Crypt;
@@ -33,10 +34,11 @@ class NewsController extends BackendController
 
         $data = array();
 
-        $data['rows'] = News::where('is_deleted', 0)->orderBy('id', 'desc')->with('createBy')->paginate(20);
+        $data['rows'] = News::where('is_deleted', 0)->orderBy('id', 'desc')->with('createBy')->paginate(12);
 
         foreach($data['rows'] as $row){
             $row->hashId = Crypt::encrypt($row->id);
+            $row->image_src = ImageHelper::generateImage($row->image_src, 'main');
         }
 
         parent::log($request , 'Visited admin news list');
@@ -595,7 +597,7 @@ class NewsController extends BackendController
             'url' => $news->source_url,
         ];
 
-        WebsiteBackupJob::dispatch($backup);
+        // WebsiteBackupJob::dispatch($backup);
     }
 
     function makeBackup(Request $request, $id){
