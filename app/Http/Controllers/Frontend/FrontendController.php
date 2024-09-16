@@ -23,7 +23,8 @@ class FrontendController extends Controller{
         $data['menu'] = Menu::where('is_deleted',0)->where('status','Active')->where('label','Main Menu')->first();
         $data['hotNewses'] = News::where('is_deleted', 0)->where('status', 'Active')->orderBy('id', 'desc')->limit(5)->get();
         $data['categories'] = Category::where('is_deleted', 0)->where('status', 'Active')->latest()->take(5)->get();
-        $data['tags'] = Tag::where('is_deleted', 0)->where('status', 'Active')->orderBy('count', 'desc')->get();
+        // take 10 random tags
+        $data['tags'] = Tag::where('is_deleted', 0)->where('status', 'Active')->inRandomOrder()->limit(12)->get();
         $data['pages'] = Page::where('is_deleted', 0)->orderBy('id', 'desc')->get();
 
         return $data;

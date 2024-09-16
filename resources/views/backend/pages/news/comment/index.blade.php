@@ -64,7 +64,7 @@
                                 {{ $key + 1 }}
                             </td>
                             <td>
-                                {{ $item->user->name }}
+                                {{ $item->user->name ?? 'Guest' }}
                             </td>
                             <td>
                                 {{ $item->content }} <br>

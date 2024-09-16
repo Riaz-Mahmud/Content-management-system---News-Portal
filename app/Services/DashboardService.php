@@ -85,7 +85,7 @@ class DashboardService{
             $newComments[] = [
                 'hasId' => Crypt::encrypt($comment->id),
                 'comment' => $comment->content,
-                'author' => $comment->user->name,
+                'author' => $comment->user->name ?? 'Guest',
                 'news' => StringHelper::title($comment->news->title),
                 'created_at' => Carbon::parse($comment->created_at)->diffForHumans(null, $options, true). ' ago',
             ];

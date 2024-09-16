@@ -34,8 +34,8 @@ class SlideItemController extends BackendController
         foreach($slide_items as $slide_item){
             $slide_item->hashId = Crypt::encrypt($slide_item->id);
             if($slide_item->newses_id){
-                $slide_item->image = ImageHelper::generateImage($slide_item->news->image_src, 'thumbnail');
-                $slide_item->imageMain = ImageHelper::generateImage($slide_item->news->image_src);
+                $slide_item->image = ImageHelper::generateImage($slide_item->news->image_src ?? '', 'thumbnail');
+                $slide_item->imageMain = ImageHelper::generateImage($slide_item->news->image_src ?? '');
             }else{
                 $slide_item->image = ImageHelper::generateImage($slide_item->src, 'thumbnail');
                 $slide_item->imageMain = ImageHelper::generateImage($slide_item->src);
