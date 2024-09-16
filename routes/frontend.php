@@ -75,6 +75,10 @@ Route::middleware('front')->group(function () {
     ///////////////// Page Start //////////////////////
     Route::prefix('pages')->group(function () {
         Route::get('/', function () { return redirect()->route('home'); });
+        Route::get('/contact', [PageController::class, 'contact'])->name('page.contact');
+        Route::post('/contact', [PageController::class, 'contactStore'])->name('page.contact.store');
+        Route::get('/privacy', [PageController::class, 'privacyPolicy'])->name('page.privacy-policy');
+        Route::get('/termsConditions', [PageController::class, 'tramsConditation'])->name('page.terms-condition');
         Route::get('/{slug}', [PageController::class, 'index'])->name('page.index');
     });
     ///////////////// Page End //////////////////////

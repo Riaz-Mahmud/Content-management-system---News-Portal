@@ -96,7 +96,7 @@
                                 <div class="show-more-snopt smact"><i class="fal fa-ellipsis-v"></i></div>
                                 <div class="show-more-snopt-tooltip">
                                     <a href="#comments" class="custom-scroll-link"> <i class="fas fa-comment-alt"></i> Write a Comment</a>
-                                    <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a>
+                                    {{-- <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a> --}}
                                 </div>
                                 <a class="print-btn" href="javascript:window.print()" data-microtip-position="bottom"><span>Print</span><i class="fal fa-print"></i></a>
                             </div>
@@ -206,15 +206,15 @@
                                         @foreach ($data['rose']['comments'] as $comment)
                                             <li class="comment">
                                                 <div class="comment-author">
-                                                    <img alt="" src=" {{ \App\Helpers\ImageHelper::generateImage($comment->user->profile->image, 'main')}}" width="50" height="50">
+                                                    <img alt="" src=" {{ \App\Helpers\ImageHelper::generateImage($comment->user->profile->image ?? '', 'main')}}" width="50" height="50">
                                                 </div>
                                                 <div class="comment-body smpar">
-                                                    <h4><a href="{{ route('profile.show', $comment->user->email) }}">{{$comment->user->name}}</a></h4>
+                                                    <h4>{{$comment->user->name ?? 'User'}}</h4>
                                                     <div class="box-widget-menu-btn smact"><i class="far fa-ellipsis-h"></i></div>
-                                                    <div class="show-more-snopt-tooltip bxwt">
-                                                        {{-- <a href="#"> <i class="fas fa-reply"></i> Reply</a> --}}
+                                                    {{-- <div class="show-more-snopt-tooltip bxwt">
+                                                        <a href="#"> <i class="fas fa-reply"></i> Reply</a>
                                                         <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="clearfix"></div>
                                                     <p>{{$comment->content}}</p>
                                                     @if ($comment->image || $comment->video)
@@ -243,31 +243,26 @@
                                 @if (config('frontend.comment.canComment'))
                                 <div id="addcom" class="clearafix">
                                     <div class="pr-subtitle"> Leave A Comment <i class="fas fa-caret-down"></i></div>
-                                    @if (Auth::check())
-                                        <div class="comment-reply-form fl-wrap">
-                                            <form id="add-comment" class="add-comment custom-form" action="{{route('news.store.comment', $data['rose']['hashId'])}}" method="POST" enctype="multipart/form-data">
-                                                @csrf
-                                                @if(config('frontend.comment.messageBox'))
-                                                    <fieldset>
-                                                        <textarea placeholder="Your Comment:" name="comment"></textarea>
-                                                    </fieldset>
-                                                @endif
-                                                @if(config('frontend.comment.attachment'))
-                                                <div class="mb-3">
-                                                    <label class="form-label required" for="add-news-image">Attach image/video</label>
-                                                    <div class="input-group">
-                                                        <input type="file" class="form-control" id="add-news-comment-file" name="attach_file" accept="image/*,video/*">
-                                                    </div>
+
+                                    <div class="comment-reply-form fl-wrap">
+                                        <form id="add-comment" class="add-comment custom-form" action="{{route('news.store.comment', $data['rose']['hashId'])}}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @if(config('frontend.comment.messageBox'))
+                                                <fieldset>
+                                                    <textarea placeholder="Your Comment:" name="comment"></textarea>
+                                                </fieldset>
+                                            @endif
+                                            @if(config('frontend.comment.attachment'))
+                                            <div class="mb-3">
+                                                <label class="form-label required" for="add-news-image">Attach image/video</label>
+                                                <div class="input-group">
+                                                    <input type="file" class="form-control" id="add-news-comment-file" name="attach_file" accept="image/*,video/*">
                                                 </div>
-                                                @endif
-                                                <button class="btn float-btn color-btn">  Submit Comment <i class="fas fa-caret-right"></i> </button>
-                                            </form>
-                                        </div>
-                                    @else
-                                        <div class="comment-reply-form fl-wrap">
-                                            <button class="btn float-btn color-btn show-reg-form" style="border:none; -webkit-appearance: none; cursor:pointer; margin-top:20px; padding: 18px 30px; border-radius: 4px;">  Login First <i class="fas fa-caret-right"></i> </button>
-                                        </div>
-                                    @endif
+                                            </div>
+                                            @endif
+                                            <button class="btn float-btn color-btn">  Submit Comment <i class="fas fa-caret-right"></i> </button>
+                                        </form>
+                                    </div>
 
                                 </div>
                                 @endif

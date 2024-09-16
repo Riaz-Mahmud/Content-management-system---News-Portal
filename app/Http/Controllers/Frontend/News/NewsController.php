@@ -105,7 +105,7 @@ class NewsController extends FrontendController{
 
             $commnet = new NewsComment();
             $commnet->newses_id = $news->id;
-            $commnet->user_id = auth()->user()->id;
+            $commnet->user_id = auth()->user()->id ?? null;
             $commnet->content = $request->comment;
             $save = $commnet->save();
 

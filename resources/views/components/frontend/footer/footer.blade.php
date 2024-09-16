@@ -4,10 +4,10 @@
         <div class="footer-widget-wrap fl-wrap">
             <div class="row">
                 <!-- footer-widget -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="footer-widget">
                         <div class="footer-widget-content">
-                            <a href="index.html" class="footer-logo"><img src="{{ Storage::url('assets/image/logo/logo_with_name_white.png') }}" alt=""></a>
+                            <a href="{{route('home')}}" class="footer-logo"><img src="{{ Storage::url('assets/image/logo/logo_with_name_white.png') }}" alt=""></a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eaque ipsa quae ab illo inventore veritatis et quasi architecto. </p>
 
                             <x-frontend.social-icon.social-icon :position="'footer'" />
@@ -17,7 +17,7 @@
                 </div>
                 <!-- footer-widget  end-->
                 <!-- footer-widget -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="footer-widget">
                         <div class="footer-widget-title">Cetegories </div>
                         <div class="footer-widget-content">
@@ -33,12 +33,13 @@
                 </div>
                 <!-- footer-widget  end-->
                 <!-- footer-widget -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="footer-widget">
                         <div class="footer-widget-title">Links</div>
                         <div class="footer-widget-content">
                             <div class="footer-list footer-box fl-wrap">
                                 <ul>
+                                    <li> <a href="{{ route('page.contact')}}">Contact</a></li>
                                     @foreach ($data['pages'] as $page)
                                         <li> <a href="{{ URL::to($page['slug'])}}">{{ $page['title'] }}</a></li>
                                     @endforeach
@@ -49,7 +50,7 @@
                 </div>
                 <!-- footer-widget  end-->
                 <!-- footer-widget -->
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <div class="footer-widget">
                         <div class="footer-widget-title">Subscribe</div>
                         <div class="footer-widget-content">
@@ -63,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- footer-widget  end-->
             </div>
         </div>
@@ -76,8 +77,8 @@
             <div class="to-top"> <i class="fas fa-caret-up"></i></div>
             <div class="subfooter-nav">
                 <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="{{route('page.terms-condition')}}">Terms & Conditions</a></li>
+                    <li><a href="{{route('page.privacy-policy')}}">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
