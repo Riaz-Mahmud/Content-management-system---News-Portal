@@ -5,8 +5,6 @@ namespace App\Livewire;
 use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\PollItem;
-use Jenssegers\Agent\Agent;
-use App\Jobs\ActivityLogJob;
 use App\Models\PollResponse;
 use Illuminate\Http\Request;
 use App\Models\Poll as PollModel;
@@ -17,142 +15,191 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
 
-class Poll extends Component{
-
+class Poll extends Component
+{
     public $data = [];
 
-    public function reponseSubmit(Request $request, $pollId, $pollItemId){
+    /**
+     * Submits the poll response.
+     */
+    public function responseSubmit(Request $request, $pollId, $pollItemId)
+    {
         $pollId = Crypt::decrypt($pollId);
         $pollItemId = Crypt::decrypt($pollItemId);
 
-        $pollFind = PollModel::where('id', $pollId)->first();
-        $pollItemFind = PollItem::where('id', $pollItemId)->first();
-        if($pollFind != null && $pollItemFind != null){
-            if(Auth::check()){
+        $pollFind = PollModel::find($pollId);
+        $pollItemFind = PollItem::find($pollItemId);
 
-                $checkResponse = PollResponse::where('poll_id', $pollId)
-                    ->where('user_id', Auth::user()->id)->first();
-
-                if($checkResponse == null){
-
-                    $pollResponse = new PollResponse();
-                    $pollResponse->poll_id = $pollId;
-                    $pollResponse->poll_item_id = $pollItemId;
-                    $pollResponse->user_id = Auth::user()->id;
-                    $pollResponse->save();
-
-                    $response=['date'=>Carbon::now()->format('Y-m-d'),'value'=> $pollItemId];
-                    Cookie::queue('poll_response', json_encode($response), time() + 60*24*7);
-                    // Cookie::queue('poll_response', date('Y-m-d'), time() + 60*24*7);
-
-                    $this->log($request, 'Poll response submitted successfully');
-                }
-            }else{
-
-                $cookie = $request->cookie('poll_response');
-                if($cookie == null && $cookie != date('Y-m-d')){
-
-                    $pollResponse = new PollResponse();
-                    $pollResponse->poll_id = $pollId;
-                    $pollResponse->poll_item_id = $pollItemId;
-                    $pollResponse->ip_address = $request->ip();
-                    $pollResponse->save();
-
-                    $response=['date'=>Carbon::now()->format('Y-m-d'),'value'=> $pollItemId];
-                    Cookie::queue('poll_response', json_encode($response), time() + 60*24*7);
-                    // Cookie::queue('poll_response', date('Y-m-d'), time() + 60*24*7);
-
-                    $this->log($request, 'Poll response submitted successfully');
-                }
+        if ($pollFind && $pollItemFind) {
+            if (Auth::check()) {
+                $this->processAuthenticatedResponse($request, $pollId, $pollItemId);
+            } else {
+                $this->processGuestResponse($request, $pollId, $pollItemId);
             }
         }
-        $polls = PollModel::where('is_deleted', 0)->where('status', 'Active')->whereDate('created_at', '=', Carbon::now())->orderBy('id', 'desc')->first();
+
+        $polls = PollModel::activeToday()->first();
         $this->calculatePercentage($request, $polls);
     }
 
-    private function calculatePercentage($request, $polls){
+    /**
+     * Handles response submission for authenticated users.
+     */
+    private function processAuthenticatedResponse(Request $request, $pollId, $pollItemId)
+    {
+        $checkResponse = PollResponse::where('poll_id', $pollId)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+
+        if (!$checkResponse) {
+            $pollResponse = new PollResponse();
+            $pollResponse->poll_id = $pollId;
+            $pollResponse->poll_item_id = $pollItemId;
+            $pollResponse->user_id = Auth::user()->id;
+            $pollResponse->save();
+            $this->setPollResponseCookie($pollItemId);
+
+            $this->log($request, 'Poll response submitted successfully');
+        } else {
+            $checkResponse->poll_item_id = $pollItemId;
+            $checkResponse->save();
+            $this->setPollResponseCookie($pollItemId);
+
+            $this->log($request, 'Poll response updated successfully');
+        }
+    }
+
+    /**
+     * Handles response submission for guest users.
+     */
+    private function processGuestResponse(Request $request, $pollId, $pollItemId)
+    {
+        $cookie = $request->cookie('poll_response');
+        if (!$cookie || $cookie !== date('Y-m-d')) {
+            $pollResponse = new PollResponse();
+            $pollResponse->poll_id = $pollId;
+            $pollResponse->poll_item_id = $pollItemId;
+            $pollResponse->ip_address = $request->ip();
+            $pollResponse->save();
+            $this->setPollResponseCookie($pollItemId);
+
+            $this->log($request, 'Poll response submitted successfully');
+        }
+    }
+
+    /**
+     * Set the poll response cookie.
+     */
+    private function setPollResponseCookie($pollItemId)
+    {
+        $response = ['date' => Carbon::now()->format('Y-m-d'), 'value' => $pollItemId];
+        Cookie::queue('poll_response', json_encode($response), 60 * 24 * 7); // 7 days
+    }
+
+    /**
+     * Calculates the percentage of each poll response.
+     */
+    private function calculatePercentage($request, $polls)
+    {
         $this->data = [];
-        if($polls != null){
+
+        if ($polls) {
             $this->data['id'] = $polls->id;
             $this->data['hashId'] = Crypt::encrypt($polls->id);
             $this->data['question'] = $polls->question;
-            if(Auth::check()){
-                $this->data['userPollResponse'] = $polls->pollResponses()->where('user_id', Auth::user()->id)->where('is_deleted', 0)->where('status', 'Active')->first();
-            }else{
-                $guestUserResponse = $polls->pollResponses()->where('ip_address', $request->ip())->where('is_deleted', 0)->where('status', 'Active')->first();
-                if($guestUserResponse != null){
-                    $cookie = $request->cookie('poll_response');
-                    $cookie = json_decode($cookie);
-                    if($cookie != null && $cookie->date == $guestUserResponse->created_at->format('Y-m-d')){
 
-                        $this->data['userPollResponse'] = $guestUserResponse;
-
-                    }else{
-                        $this->data['userPollResponse'] = null;
-                    }
-                }
+            if (Auth::check()) {
+                $this->data['userPollResponse'] = $polls->pollResponses()->active()->where('user_id', Auth::user()->id)->first();
+            } else {
+                $this->handleGuestUserResponse($request, $polls);
             }
 
-            $pollResponse = PollResponse::where('poll_id', $polls->id)->where('is_deleted', 0)->count();
+            $pollResponsesCount = PollResponse::where('poll_id', $polls->id)->active()->count();
+            $this->mapPollItemsWithResponse($polls, $pollResponsesCount);
+        }
+    }
 
-            $response = PollResponse::select('poll_responses.poll_item_id', DB::raw('count(*) as total'))
-                        ->where('poll_responses.poll_id', $polls->id)
-                        ->where('poll_responses.is_deleted', 0)
-                        ->groupBy('poll_responses.poll_item_id')
-                        ->get();
-
-            $pollItems = PollItem::where('poll_id',$polls->id)->where('is_deleted', 0)->get();
-
-            foreach($response as $value){
-                foreach($pollItems as $item){
-                    if($item->id == $value->poll_item_id){
-                        $item->total = $value->total;
-                        $item->percentage = round(($value->total / $pollResponse) * 100);
-                    }
-                }
-            }
-
-            foreach($pollItems as $item){
-                $this->data['items'][] = [
-                    'id' => $item->id,
-                    'hashId' => Crypt::encrypt($item->id),
-                    'option' => $item->option,
-                    'order' => $item->order,
-                    'total' => $item->total ?? 0,
-                    'percentage' => $item->percentage ?? 0,
-                ];
+    /**
+     * Handle guest user response.
+     */
+    private function handleGuestUserResponse($request, $polls)
+    {
+        $guestUserResponse = $polls->pollResponses()->active()->where('ip_address', $request->ip())->first();
+        if ($guestUserResponse) {
+            $cookie = json_decode($request->cookie('poll_response'));
+            if ($cookie && $cookie->date == $guestUserResponse->created_at->format('Y-m-d')) {
+                $this->data['userPollResponse'] = $guestUserResponse;
+            } else {
+                $this->data['userPollResponse'] = null;
             }
         }
     }
 
-    public function mount(Request $request){
-        $polls = PollModel::where('is_deleted', 0)->where('status', 'Active')->whereDate('created_at', '=', Carbon::now())->orderBy('id', 'desc')->first();
+    /**
+     * Maps poll items with their response counts and percentages.
+     */
+    private function mapPollItemsWithResponse($polls, $pollResponsesCount)
+    {
+        $pollItems = $polls->items()->where('is_deleted', 0)->get();
+        $responseTotals = PollResponse::select('poll_item_id', DB::raw('count(*) as total'))
+            ->where('poll_id', $polls->id)
+            ->active()
+            ->groupBy('poll_item_id')
+            ->get();
+
+        foreach ($pollItems as $item) {
+            $itemTotal = $responseTotals->firstWhere('poll_item_id', $item->id);
+            $total = $itemTotal ? $itemTotal->total : 0;
+            $percentage = $pollResponsesCount > 0 ? round(($total / $pollResponsesCount) * 100) : 0;
+
+            $this->data['items'][] = [
+                'id' => $item->id,
+                'hashId' => Crypt::encrypt($item->id),
+                'option' => $item->option,
+                'order' => $item->order,
+                'total' => $total,
+                'percentage' => $percentage,
+            ];
+        }
+    }
+
+    /**
+     * Mount the component and load active polls.
+     */
+    public function mount(Request $request)
+    {
+        $polls = PollModel::activeToday()->first();
         $this->calculatePercentage($request, $polls);
     }
 
-    public function render(){
-
+    /**
+     * Renders the poll component view.
+     */
+    public function render()
+    {
         return view('livewire.poll');
-
     }
 
-    public function log(Request $request, $msg = null){
-        try{
+    /**
+     * Log poll activity.
+     */
+    public function log(Request $request, $msg = null)
+    {
+        try {
             $log = [
                 'user_id' => Auth::check() ? Auth::user()->id : null,
-                'description' => $msg ?? null,
-                'url' => $request->getRequestUri() ?? null,
-                'method' => $request->method() ?? null,
-                'route' => Route::currentRouteName() ?? null,
-                'ip' => $request->ip() ?? null,
-                'agent' => $request->userAgent() ?? null,
-                //'device_data' => new Agent(),
+                'description' => $msg,
+                'url' => $request->getRequestUri(),
+                'method' => $request->method(),
+                'route' => Route::currentRouteName(),
+                'ip' => $request->ip(),
+                'agent' => $request->userAgent(),
             ];
 
-            //ActivityLogJob::dispatch($log);
+            //ActivityLogJob::dispatch($log); // Uncomment if needed for background logging
 
-        }catch(\Exception $e){
-            Log::info('Activity Log Error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            Log::error('Activity Log Error: ' . $e->getMessage());
         }
     }
 }

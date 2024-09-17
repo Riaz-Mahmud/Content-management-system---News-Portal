@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Poll extends Model
 {
@@ -15,5 +16,21 @@ class Poll extends Model
 
     function pollResponses(){
         return $this->hasMany('App\Models\PollResponse', 'poll_id', 'id');
+    }
+
+    /**
+     * Scope a query to only include active poll responses.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_deleted', 0)->where('status', 'Active');
+    }
+
+    /**
+     * Scope a query to only include polls created today.
+     */
+    public function scopeActiveToday($query)
+    {
+        return $query->active()->whereDate('created_at', Carbon::today());
     }
 }
