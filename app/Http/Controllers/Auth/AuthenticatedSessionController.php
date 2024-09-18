@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
 
         Session()->flash('success', 'You are logged in successfully!');
 
-        return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+        return redirect()->route('dashboard');
     }
 
     /**

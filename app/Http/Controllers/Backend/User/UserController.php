@@ -81,15 +81,14 @@ class UserController extends BackendController
         }
     }
 
-    function updateStatus( Request $request, $hashId){
-
+    function updateStatus( Request $request, $id){
         try {
 
-            $id = Crypt::decrypt($hashId);
+            $id = Crypt::decrypt($id);
 
             $profile = Profile::where('user_id', $id)->first();
 
-            $profile->status = $profile->status == 'Blocked' ? 'Active' : 'Blocked';
+            $profile->status = $request->status;
             $profile->save();
 
             parent::log($request, 'User status updated successfully to '.$profile->status.'! name: '.$profile->first_name.' '.$profile->last_name . ' Profile ID: '.$profile->id);

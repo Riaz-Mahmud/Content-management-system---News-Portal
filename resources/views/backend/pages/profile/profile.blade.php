@@ -92,10 +92,16 @@
             @if (Auth::user()->hasPermissionTo('admin.user.delete') && Auth::user()->id != $data['profile']->id)
             <div class="card mb-4">
                 <div class="card-body">
-                    @if ($data['profile']->status == 'Blocked')
-                        <a href="{{ route('admin.user.update.status', $data['profile']->hashId)}}" class="btn btn-label-primary suspend-user" onclick=" return confirm('Are you sure you want to Unblock this user?');">Unblock</a>
+                    @if ($data['profile']->status == 'Pending')
+                        <a href="{{ route('admin.user.update.status', ['id' => $data['profile']->hashId, 'status' => 'Active']) }}"
+                            class="btn btn-label-success suspend-user" onclick=" return confirm('Are you sure you want to Approve this user?');">Approve</a>
+                        <a href="{{ route('admin.user.update.status', ['id' => $data['profile']->hashId, 'status' => 'Blocked']) }}"
+                            class="btn btn-label-warning suspend-user" onclick=" return confirm('Are you sure you want to Block this user?');">Block</a>
+                    @elseif ($data['profile']->status == 'Blocked')
+                        <a href="{{ route('admin.user.update.status', ['id' => $data['profile']->hashId, 'status' => 'Active']) }}"
+                            class="btn btn-label-success suspend-user" onclick=" return confirm('Are you sure you want to Unblock this user?');">Unblock</a>
                     @else
-                        <a href="{{ route('admin.user.update.status', $data['profile']->hashId)}}" class="btn btn-label-warning suspend-user" onclick=" return confirm('Are you sure you want to Block this user?');">Block</a>
+                        <a href="{{ route('admin.user.update.status', ['id' => $data['profile']->hashId, 'status' =>'Blocked'])}}" class="btn btn-label-warning suspend-user" onclick=" return confirm('Are you sure you want to Block this user?');">Block</a>
                     @endif
 
                     <a href="{{ route('admin.user.delete', $data['profile']->hashId) }}"
