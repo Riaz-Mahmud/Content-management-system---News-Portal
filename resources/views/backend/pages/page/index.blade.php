@@ -57,7 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data['rows'] as $key => $item)
+                    @forelse ($data['rows'] as $key => $item)
                         <tr>
                             <td>
                                 {{ $key + 1 }}
@@ -92,7 +92,11 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center">No data found</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{-- div for paginate --}}
