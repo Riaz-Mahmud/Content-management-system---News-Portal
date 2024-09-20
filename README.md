@@ -16,18 +16,16 @@ This project is a news portal that allows users to view news articles, View Poll
     ```bash
     git clone git@github.com:Riaz-Mahmud/Content-management-system---News-Portal.git
     ```
-4. Run `composer install` to install dependencies
-    ```bash
-    composer install
-    ```
-5. Create a database in MySQL with the name `news_portal` or any other name you prefer but make sure to update the database name in the `.env` file
+4. Create a database in MySQL with the name `news_portal` or any other name you prefer but make sure to update the database name in the `.env` file
     ```bash
     DB_DATABASE=news_portal
     ```
-6. Run `php artisan migrate --seed` to create the tables and seed the database
+6. Run `php artisan migrate --seed` to create the tables and seed the database with dummy data
     ```bash
     php artisan migrate --seed
     ```
+    or can import the database file from home directory of the project `news_portal.sql`
+
 7. Run `php artisan storage:link` to create a symbolic link to the storage folder
     ```bash
     php artisan storage:link

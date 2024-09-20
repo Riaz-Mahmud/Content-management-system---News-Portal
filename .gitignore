@@ -1,6 +1,6 @@
 /.phpunit.cache
 /public/hot
-
+/public/storage
 .env.backup
 .env.production
 .phpunit.result.cache
