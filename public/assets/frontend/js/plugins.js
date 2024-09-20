@@ -3163,7 +3163,7 @@ jQuery.extend(jQuery.easing, {
             if (((c = this.s.dynamic ? this.s.dynamicEl[b].html : this.$items.eq(b).attr("data-html")), !a && c)) return { html5: !0 };
             var d = a.match(/\/\/(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=|embed\/)?([a-z0-9\-\_\%]+)/i),
                 e = a.match(/\/\/(?:www\.)?vimeo.com\/([0-9a-z\-_]+)/i),
-                f = a.match(/\/\/(?:www\.)?newsportal.local\/([0-9a-z\-_]+)/i),
+                f = a.match(/\/\/(?:www\.)?127.0.0.1:8000\/([0-9a-z\-_]+)/i),
                 g = a.match(/\/\/(?:www\.)?(?:vk\.com|vkontakte\.ru)\/(?:video_ext\.php\?)(.*)/i);
             return d ? { youtube: d } : e ? { vimeo: e } : f ? { dailymotion: f } : g ? { vk: g } : void 0;
         }),

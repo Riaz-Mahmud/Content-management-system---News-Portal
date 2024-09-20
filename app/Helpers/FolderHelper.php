@@ -20,7 +20,7 @@ class FolderHelper{
             Session::put('folder_uuid', uniqid().date('YmdHis'));
             // $request->session()->put('folder_uuid', uniqid().date('YmdHis'));
 
-            //create folder with folder_uuid. this folder will be used for upload images
+            //this folder will be used for upload images
             if (!is_dir(storage_path("app/public/assets/news/".Session::get('folder_uuid')))) {
                 mkdir(storage_path("app/public/assets/news/".Session::get('folder_uuid')), 0775, true);
             }

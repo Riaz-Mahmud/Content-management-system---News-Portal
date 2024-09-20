@@ -1,0 +1,57 @@
+[August 7, 2024, 11:12:10 am] Info: Backup started for https://www.bbc.co.uk/bitesize/articles/zjfwp9q
+[August 7, 2024, 11:12:10 am] Info: Base URL: https://www.bbc.co.uk/
+[August 7, 2024, 11:12:11 am] Info: Site Status: 200
+[August 7, 2024, 11:12:11 am] Downloading file: https://ichef.bbci.co.uk/images/ic/480xn/p0j23cpm.jpg
+[August 7, 2024, 11:12:11 am] Downloading file: https://ichef.bbci.co.uk/images/ic/480xn/p0j23ddy.jpg
+[August 7, 2024, 11:12:11 am] Downloading file: https://ichef.bbci.co.uk/images/ic/480xn/p0j23dwj.jpg
+[August 7, 2024, 11:12:11 am] Downloading file: https://ichef.bbci.co.uk/images/ic/480xn/p0j23f1h.jpg
+[August 7, 2024, 11:12:11 am] Downloading file: https://ichef.bbci.co.uk/images/ic/480xn/p0j23fdx.jpg
+[August 7, 2024, 11:12:12 am] Downloading file: https://ichef.bbci.co.uk/images/ic/480xn/p0j23fmy.jpg
+[August 7, 2024, 11:12:12 am] Downloading file: https://ichef.bbci.co.uk/images/ic/480xn/p09mvftj.jpg
+[August 7, 2024, 11:12:12 am] Downloading file: https://ichef.bbci.co.uk/images/ic/480xn/p0h7x8mw.jpg
+[August 7, 2024, 11:12:12 am] Downloading file: https://ichef.bbci.co.uk/images/ic/480xn/p09vls9n.jpg
+[August 7, 2024, 11:12:12 am] Downloading file: https://ichef.bbci.co.uk/images/ic/240x135/p0j7w8zq.jpg
+[August 7, 2024, 11:12:12 am] Downloading file: https://ichef.bbci.co.uk/images/ic/240x135/p0g46396.jpg
+[August 7, 2024, 11:12:12 am] Downloading file: https://ichef.bbci.co.uk/images/ic/240x135/p0g0dv9r.jpg
+[August 7, 2024, 11:12:12 am] Downloading file: https://ichef.bbci.co.uk/images/ic/240x135/p0hl8qxp.jpg
+[August 7, 2024, 11:12:12 am] Downloading file: https://www.bbc.co.uk/bitesize/articles/zjfwp9q
+[August 7, 2024, 11:12:12 am] Error: file_put_contents(public/storage/assets/news/9/backup/css/zjfwp9q.): Failed to open stream: Permission denied
+[August 7, 2024, 11:12:12 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-defaultVendors.ebc83234c6545d47fe13.js
+[August 7, 2024, 11:12:12 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-gel.a4eaa23beba78e4846f1.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-website.b2eff32cb87d9048a580.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-base-website.d0df6a9cdf79a8e51124.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-framework.e8a3d0678e27c0944401.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-pwa.83b97125b9e32d5a7e79.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-vendor-optimizely.b6029b6a525299b11282.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-call-to-action-link.a97bc8cd35e6295d48d6.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-global-navigation.83bcb0e91fcd13dcf387.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-global-navigation.32ed6f84288b8bbb327b.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-product-navigation.537d177e2d665518c664.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-masthead.75df531ccee070e6df46.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-product-navigation.b6ca5ffdcea67a073361.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-information-panel.136cd571df1dfc4a3bc2.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-education-article.63d260ad813887d0f06a.js
+[August 7, 2024, 11:12:13 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-header.08a1e24efbb88b1a29df.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-metadata-snippet.ed2acd14a17d15e9a5cc.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-metadata-strip.a17e8b64703bdcd1039a.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-page-type-indicator.d9c7fd9448f8822a9a46.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-promo.13e19f88ae9fed8b96d2.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-additional-links.ba4984a05acc7e0bbf82.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-media-player.0feefe382270c1c73d5c.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-rich-text.c1043deb4b6135fe9f82.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-sign-in-call-to-action.f1aa6597eae6bfe79a4b.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-accordion.c06757bafd4446070e25.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-sign-in-prompt.687fd2ace08c8a738f9f.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-riddle.38b612f91dc58391d3cd.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-storyboard.4590229332de920da05c.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-sidebar-navigation.421f336bf84b5498f060.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-component-forms.7f9f5e31973badcd9d59.js
+[August 7, 2024, 11:12:14 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-language-selector.8582dbcc47bf881b2fa5.js
+[August 7, 2024, 11:12:15 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-footer-promos.b8b41ec2770a8ff57382.js
+[August 7, 2024, 11:12:15 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-global-footer.a075962865c70971e330.js
+[August 7, 2024, 11:12:15 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-defaultVendors.73a83f531311189688ea.legacy.js
+[August 7, 2024, 11:12:15 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-framework.7c47a9af29826155c494.legacy.js
+[August 7, 2024, 11:12:15 am] Downloading file: https://static.files.bbci.co.uk/core/bundle-pwa.aa7363f6a676525192e3.legacy.js
+[August 7, 2024, 11:12:15 am] Info: Backup created successfully Path: public/storage/assets/news/9/backup/index.html
+[August 7, 2024, 11:12:15 am] Download Queue: Unsuccesful download links =>
+[August 7, 2024, 11:12:15 am] Pending Queue: link:https://www.bbc.co.uk/bitesize/articles/zjfwp9q status:pending
