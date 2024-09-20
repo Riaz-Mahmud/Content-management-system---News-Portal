@@ -188,7 +188,7 @@ Route::prefix('admin')->middleware(['auth','userRolePermission:admin.dashboard.i
         Route::get('/', [RoleController::class, 'index'])->name('admin.role.index')->middleware('permission:admin.role.index');
         Route::post('/store', [RoleController::class, 'store'])->name('admin.role.store')->middleware('permission:admin.role.create');
         Route::post('/update/{id}', [RoleController::class, 'update'])->name('admin.role.update')->middleware('permission:admin.role.edit');
-        Route::post('/update/user/role', [RoleController::class, 'updateUserRole'])->name('admin.role.update.user')->middleware('permission:admin.user.assign.role');
+        Route::post('/update/user/role/byAdmin', [RoleController::class, 'updateUserRole'])->name('admin.role.update.user')->middleware('permission:admin.user.assign.role');
         Route::post('/delete/{id}', [RoleController::class, 'delete'])->name('admin.role.delete')->middleware('permission:admin.role.delete');
     });
     ///////////////////// Role End //////////////////////

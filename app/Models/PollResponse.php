@@ -20,4 +20,12 @@ class PollResponse extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
+
+    /**
+     * Scope a query to only include active poll responses.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_deleted', 0)->where('status', 'Active');
+    }
 }

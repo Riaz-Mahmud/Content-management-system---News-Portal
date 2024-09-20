@@ -50,7 +50,7 @@
                     @endforeach
                     @if (Auth::user())
                         <li>
-                            <a><img src="{{ \App\Helpers\ImageHelper::generateImage(Auth::user()->profile->image,'main') }}" alt="User" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+                            <a><img src="{{ \App\Helpers\ImageHelper::generateImage(Auth::user()->profile->image ?? '','main') }}" alt="User" style="width: 30px; height: 30px; border-radius: 50%;"></a>
                             <ul>
                                 <li><a href="{{ route('admin.profile.show', Auth::user()->email) }}">Profile</a></li>
                                 @if (Auth::user()->hasPermissionTo('admin.dashboard.index'))
